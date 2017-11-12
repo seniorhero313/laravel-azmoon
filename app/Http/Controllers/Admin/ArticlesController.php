@@ -40,7 +40,7 @@ class ArticlesController extends AdminController
     public function store(ArticleRequest $request)
     {
         $imagesUrl = $this->uploadImages($request->file('images'));
-        $imagesUrl = json_encode($imagesUrl);
+        $imagesUrl = serialize($imagesUrl);
 
         $body = strip_tags($request->body);
         $desc = mb_substr($body,0,200,"utf-8");
@@ -67,12 +67,15 @@ class ArticlesController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Articles $article
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit(Articles $article)
     {
-        //
+        $img = unserialize($article->images);
+        //dd($img['thumb']);
+        return view('admin.articles.edit',compact('article','img'));
     }
 
     /**
@@ -82,9 +85,9 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request,Articles $article)
     {
-        //
+
     }
 
     /**

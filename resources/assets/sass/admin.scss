@@ -1,0 +1,32 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "css/bootstrap-rtl.min.css";
+@import "css/selectize.bootstrap3.css";
+@import "css/fontiran.css";
+
+// nav
+.navbar-nav > li {
+  float: right;
+}
+
+.dropdown-menu > li > a {
+  text-align: right;
+}
+
+//body
+
+body{
+  font-family: IRANSans, Tahoma, sans-serif!important;
+}
+
+//table
+
+.table th{
+  text-align: right;
+}
+
+//form
+
+form .form-group > div {
+  padding: 15px;
+}

@@ -1,0 +1,3 @@
+@yield('script')
+</body>
+</html>

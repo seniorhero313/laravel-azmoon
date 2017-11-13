@@ -21,8 +21,8 @@ class Articles extends Migration
             $table->string('slug');
             $table->text('description');
             $table->text('body');
-            $table->text('images');
-            $table->string('tags');
+            $table->text('images')->nullable();
+            $table->string('tags')->nullable();
             $table->integer('viewCount')->default(0);
             $table->integer('commentCount')->default(0);
             $table->timestamps();

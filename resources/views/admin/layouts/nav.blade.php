@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="{{ (Request::is('admin') ? 'active' : '') }}"><a href="{{route('panel.index')}}"> صفحه اصلی <span class="sr-only">(current)</span></a></li>
                 <li class="{{ (Request::is('admin/articles') ? 'active' : '') }}"><a href="{{route('articles.index')}}"> مطالب </a></li>
+                <li class="{{ (Request::is('admin/articles') ? 'active' : '') }}"><a href="/admin/exams"> آزمون </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->

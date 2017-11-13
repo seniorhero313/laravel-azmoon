@@ -19,17 +19,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth']
     $this->get('/' , 'PanelController@index')->name('panel.index');
     $this->resource('articles' , 'ArticlesController');
 
-    /*$this->post('/panel/upload-image' , 'PanelController@uploadImageSubject');
-    $this->resource('courses' , 'CourseController');
-    $this->resource('episodes' , 'EpisodeController');
-    $this->resource('roles' , 'RoleController');
-    $this->resource('permissions' , 'PermissionController');
-
-    $this->group(['prefix' => 'users'],function (){
-        $this->get('/' , 'UserController@index');
-        $this->resource('level' , 'LevelManageController' , ['parameters' => ['level' => 'user']]);
-        $this->delete('/{user}/destroy' , 'UserController@destroy')->name('users.destroy');
-    });*/
+    Route::group(['prefix' => 'exams'],function (){
+        $this->get('/' , 'ExamsController@index');
+    });
 });
 Auth::routes();
 

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/' , 'HomeController@index');
+Route::get('/article/{article}' , 'HomeController@article')->name('article.show');
+
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth'],function (){
     $this->get('/' , 'PanelController@index')->name('panel.index');

@@ -7,3 +7,16 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+html,body{
+  direction: rtl;
+}
+
+.box-center{
+  display: table;
+  margin:0 auto;
+}
+
+.ltr{
+  direction: ltr;
+}

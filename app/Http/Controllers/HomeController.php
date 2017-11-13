@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Articles;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $articles = Articles::latest()->paginate(10);
+        return view('index',compact('articles'));
+    }
+
+    public function article($id)
+    {
+        $article = Articles::whereId($id)->first();
+        $img = unserialize($article->images)['images'];
+        $img = $img['600'];
+        return view('article',compact('article','img'));
     }
 }

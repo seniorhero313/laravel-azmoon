@@ -8350,3 +8350,17 @@ button.close {
   }
 }
 
+html,
+body {
+  direction: rtl;
+}
+
+.box-center {
+  display: table;
+  margin: 0 auto;
+}
+
+.ltr {
+  direction: ltr;
+}
+

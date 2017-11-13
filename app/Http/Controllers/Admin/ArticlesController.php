@@ -74,20 +74,36 @@ class ArticlesController extends AdminController
     public function edit(Articles $article)
     {
         $img = unserialize($article->images);
-        //dd($img['thumb']);
         return view('admin.articles.edit',compact('article','img'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ArticleRequest|Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update(ArticleRequest $request,Articles $article)
+    public function update(ArticleRequest $request,$id)
     {
+        $imagesUrl = null;
+        if($request->file('images') != null){
+            $imagesUrl = $this->uploadImages($request->file('images'));
+            $imagesUrl = serialize($imagesUrl);
+        }
 
+
+        $body = strip_tags($request->body);
+        $desc = mb_substr($body,0,200,"utf-8");
+        if(strlen($desc) > 210){
+            $desc = $desc . "...";
+        }
+
+        $req = array_merge($request->all() , [ 'images' => $imagesUrl, 'description' => $desc]);
+        unset($req['_token']);
+        unset($req['_method']);
+        auth()->user()->article()->where('id',$id)->update($req);
+        return redirect(route('articles.index'));
     }
 
     /**

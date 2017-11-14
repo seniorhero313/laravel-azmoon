@@ -8,6 +8,7 @@
             <a href="{{route('exams.index')}}">آزمون</a></li>
         <li class="{{ (Request::is('admin/exams/create') ? 'active' : '') }}">
             <a href="{{route('exams.create')}}">آزمون جدید</a>
+            <a href="{{route('result.index')}}">نتایج آزمون</a>
         </li>
     </ul>
 </div>

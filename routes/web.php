@@ -29,7 +29,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth']
         $this->get('/edit' , 'ExamsController@edit')->name('exams.edit');
         $this->post('/edit' , 'ExamsController@update')->name('exams.update');
         $this->post('/{examId}' , 'ExamsController@destroy')->name('exams.destroy');
-
         Route::group(['prefix' => 'questions'],function (){
             $this->get('/' , function (){
                 return redirect('exams');
@@ -41,6 +40,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth']
             $this->get('/{examId}/edit/{questionId}','QuestionsController@edit');
             $this->post('/{examId}/update','QuestionsController@update');
         });
+
+        Route::group(['prefix' => 'result'],function (){
+            $this->get('/' , function (){
+                return redirect('exams');
+            })->name('result.index');
+        });
+
     });
 });
 Auth::routes();

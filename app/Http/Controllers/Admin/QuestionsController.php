@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exam;
+use App\Http\Requests\QuestionRequest;
+use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,9 +15,11 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($examId)
     {
-        //
+        $questions = Question::where('exam_id',$examId)->get();
+        $exam = Exam::whereId($examId)->first();
+        return view('admin.questions.index',compact('questions','exam'));
     }
 
     /**
@@ -22,20 +27,23 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($examId)
     {
-        //
+        $exam = Exam::whereId($examId)->first();
+        return view('admin.questions.create',compact('exam'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param QuestionRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
-        //
+        $exam_id = $request->exam_id;
+        $question = Question::create($request->all());
+        return redirect(route('questions.index',$exam_id));
     }
 
     /**
@@ -55,9 +63,10 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($examId,$questionId)
     {
-        //
+        $question = Question::whereId($questionId)->first();
+        return view('admin.questions.edit',compact('question'));
     }
 
     /**
@@ -67,9 +76,14 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionRequest $request, Question $question)
     {
-        //
+        $exam_id = $request->exam_id;
+        $question_id = $request->id;
+        $req = $request->all();
+        unset($req['_token']);
+        $question->whereId($question_id)->update($req);
+        return redirect(route('questions.index',$exam_id));
     }
 
     /**
@@ -78,8 +92,11 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($questionId)
     {
-        //
+        $question = Question::all()->where('id',$questionId)->first();
+        $exam_id = $question->exam_id;
+        $question->delete();
+        return redirect(route('questions.index',$exam_id));
     }
 }

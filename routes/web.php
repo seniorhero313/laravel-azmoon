@@ -31,12 +31,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth']
             $this->get('/' , function (){
                 return redirect('exams');
             });
-            $this->get('/{examId}' , 'QuestionController@index');
-            $this->get('/{examId}/create' , 'QuestionController@create');
-            $this->post('/{examId}/create' , 'QuestionController@store');
-            $this->post('/delete/{questionId}','QuestionController@destroy');
-            $this->get('/edit/{questionId}','QuestionController@edit');
-            $this->post('/update','QuestionController@update');
+            $this->get('/{examId}' , 'QuestionsController@index')->name('questions.index');
+            $this->get('/{examId}/create' , 'QuestionsController@create');
+            $this->post('/{examId}/create' , 'QuestionsController@store');
+            $this->post('/delete/{questionId}','QuestionsController@destroy');
+            $this->get('/{examId}/edit/{questionId}','QuestionsController@edit');
+            $this->post('/{examId}/update','QuestionsController@update');
         });
     });
 });

@@ -28,14 +28,16 @@ class HomeController extends Controller
     public function index()
     {
         $articles = Articles::latest()->paginate(10);
-        $allExams = Exam::latest()->with('answers')->get();
-        $exams = [];
-        foreach ($exams as $exam){
-            if(    $exam->answers->count() == 0){
-                array_push($exams,$exam);
+        $exams = Exam::latest()->get();
+        $userAnswered = auth()->user()->answers;
+
+        foreach ($userAnswered as $item){
+            foreach ($exams as $key=>$exam){
+                if($item->exam_id == $exam->id){
+                    unset($exams[$key]);
+                }
             }
         }
-
 
         return view('index',compact('articles','exams'));
     }
@@ -58,13 +60,15 @@ class HomeController extends Controller
         $examId = $request->exam_id;
         $exam = $examModel->whereId($examId)->with('questions')->with('answers')->first();
         $user= auth()->user()->first();
+        $userAnswered = auth()->user()->answers;
 
-        if(    $exam->answers->count() > 0){
-            //flash message has answer
-            return redirect(route('home.index'));
-        } else{
-            return view('examStart',compact('exam','user'));
+        foreach ($userAnswered as $item){
+            if($item->exam_id != $exam->id){
+                return view('examStart',compact('exam','user'));
+            }
         }
+
+        return redirect(route('home.index'));
     }
 
     private function answerIsTrue($question_id,$user_answer){

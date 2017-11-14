@@ -28,7 +28,15 @@ class HomeController extends Controller
     public function index()
     {
         $articles = Articles::latest()->paginate(10);
-        $exams = Exam::latest()->get();
+        $allExams = Exam::latest()->with('answers')->get();
+        $exams = [];
+        foreach ($exams as $exam){
+            if(    $exam->answers->count() == 0){
+                array_push($exams,$exam);
+            }
+        }
+
+
         return view('index',compact('articles','exams'));
     }
 
@@ -48,9 +56,15 @@ class HomeController extends Controller
     public function requestStart(Request $request,Exam $examModel)
     {
         $examId = $request->exam_id;
-        $exam = $examModel->whereId($examId)->with('questions')->first();
+        $exam = $examModel->whereId($examId)->with('questions')->with('answers')->first();
         $user= auth()->user()->first();
-        return view('examStart',compact('exam','user'));
+
+        if(    $exam->answers->count() > 0){
+            //flash message has answer
+            return redirect(route('home.index'));
+        } else{
+            return view('examStart',compact('exam','user'));
+        }
     }
 
     private function answerIsTrue($question_id,$user_answer){

@@ -36,9 +36,14 @@
                         {{$articles->links()}}
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center"> آخرین آزمون ها </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center"> آزمون ها </div>
                     <div class="panel-body">
+                        @if(count($exams) == 0)
+                            <p class="text-center text-danger">
+                                در حال حاضر هیچ آزمونی برای شما نداریم
+                            </p>
+                        @endif
                         @foreach($exams as $exam)
                             <div class="col-md-4">
                                 <div class="panel panel-primary">

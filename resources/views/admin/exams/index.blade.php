@@ -14,34 +14,32 @@
             <tr>
                 <th>#</th>
                 <th> عنوان </th>
-                <th> چکیده </th>
-                <th> بازدید </th>
-                <th> نظرات </th>
+                <th> توضیحات </th>
+                <th> زمان - دقیقه</th>
                 <th> عملیات </th>
             </tr>
             </thead>
             <tbody>
-                {{--@foreach($articles as $article)
+                @foreach($exams as $exam)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $article->title }}</td>
-                        <td>{{ $article->description }}</td>
-                        <td>{{ $article->viewCount }}</td>
-                        <td>{{ $article->commentCount }}</td>
+                        <td>{{ $exam->title }}</td>
+                        <td>{!! $exam->description !!}</td>
+                        <td>{{ $exam->duration }}</td>
                         <td>
-                            <form action="{{ route('articles.destroy',['id' => $article->id]) }}"
+                            <form action="{{ route('exams.destroy',['id' => $exam->id])}}"
                                   method="post">
-                                {{method_field('delete')}}
                                 {{csrf_field()}}
                                 <div class="btn-group btn-group-xs">
-                                    <a href="{{ route('articles.edit',['id' => $article->id])}}"
+                                    <a href="{{ route('exams.edit',['id' => $exam->id])}}"
                                        class="btn btn-warning">ویرایش</a>
                                     <button type="submit" class="btn btn-danger">حذف</button>
                                 </div>
                             </form>
+                            <a class="btn btn-sm btn-primary" href="exams/questions/{{$exam->id}}/">مدیریت سوالات</a>
                         </td>
                     </tr>
-                @endforeach--}}
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -16,6 +16,7 @@
                 <th> عنوان </th>
                 <th> توضیحات </th>
                 <th> زمان - دقیقه</th>
+                <th> تعداد سوالات </th>
                 <th> عملیات </th>
             </tr>
             </thead>
@@ -26,6 +27,7 @@
                         <td>{{ $exam->title }}</td>
                         <td>{!! $exam->description !!}</td>
                         <td>{{ $exam->duration }}</td>
+                        <td>{{count($exam->questions) }}</td>
                         <td>
                             <form action="{{ route('exams.destroy',['id' => $exam->id])}}"
                                   method="post">

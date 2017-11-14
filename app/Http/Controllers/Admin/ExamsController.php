@@ -16,7 +16,7 @@ class ExamsController extends Controller
      */
     public function index(Exam $exam)
     {
-        $exams = $exam->latest()->get();
+        $exams = $exam->latest()->with('questions')->get();
         return view('admin.exams.index',compact('exams'));
     }
 

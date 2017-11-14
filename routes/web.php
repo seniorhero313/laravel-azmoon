@@ -11,8 +11,11 @@
 |
 */
 
-Route::get('/' , 'HomeController@index');
+Route::get('/' , 'HomeController@index')->name('home.index');
 Route::get('/article/{article}' , 'HomeController@article')->name('article.show');
+Route::get('/exam/{id}' , 'HomeController@exam')->name('exam.index');
+Route::post('/exam/request' , 'HomeController@requestStart')->name('exam.request');
+Route::post('/getanswers','HomeController@getUserAnswers')->name('answers.getUserAnswers');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth'],function (){
@@ -41,5 +44,3 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=>'auth']
     });
 });
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

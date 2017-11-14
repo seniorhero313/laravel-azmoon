@@ -31,42 +31,29 @@
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                     <div class="panel-footer ltr text-center">
                         {{$articles->links()}}
                     </div>
                 </div>
-                {{--<div class="panel panel-default">
+                <div class="panel panel-default">
                     <div class="panel-heading text-center"> آخرین آزمون ها </div>
-
                     <div class="panel-body">
-
-                        @foreach($articles as $article)
+                        @foreach($exams as $exam)
                             <div class="col-md-4">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading text-center">   {{ $article->title }}  </div>
+                                    <div class="panel-heading text-center">   {{ $exam->title }}  </div>
                                     <div class="panel-body">
-                                        {{ $article->description }}
-                                        @if(strlen($article->body) > 200)
-                                            ...
-                                        @endif
+                                        {!! $exam->description !!}
                                     </div>
                                     <div class="panel-footer">
-                                        @if(strlen($article->body) > 200)
-                                            <a class="btn btn-primary" href="#"> ادامه مطلب </a>
-                                        @else
-                                            <a class="btn btn-primary" disabled> ادامه مطلب </a>
-                                        @endif
+                                        <a class="btn btn-primary" href="{{route('exam.index',$exam->id)}}"> برگزاری آزمون </a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-                        <div class="col-md-4">
-                        </div>
                     </div>
-                </div>--}}
+                </div>
             </div>
         </div>
     </div>
